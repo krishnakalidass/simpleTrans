@@ -1,0 +1,46 @@
+.container {
+  padding: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+
+  mat-form-field {
+    flex: 1 1 200px;
+  }
+}
+
+.visualizer{
+  width: 100%; 
+  overflow-x: auto;  
+  background-color: rgb(183, 199, 199);
+  border-radius: 30px;
+}
+
+.empty-message {
+  min-height: 150px;
+  text-align: center;
+  color: #888;
+  padding: 20px;
+}
+
+.trip-tooltip {
+  position: absolute;
+  margin-top: 10px;
+}
+
+h5{
+  align-items: center;
+  text-align: center;
+  letter-spacing: 0.5px;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: rgba(24, 1, 16, 0.87);
+
+}
+
