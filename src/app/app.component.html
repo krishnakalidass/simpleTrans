@@ -1,0 +1,55 @@
+<h5>Transport Simple</h5>
+
+<div class="container">
+  <div class="controls">
+    <mat-form-field appearance="outline">
+      <mat-label>Start Point</mat-label>
+      <input matInput [(ngModel)]="newStart" placeholder="e.g. Bangalore">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>End Point</mat-label>
+      <input matInput [(ngModel)]="newEnd" placeholder="e.g. Chennai">
+    </mat-form-field>
+    <button mat-fab extended color="primary" (click)="addTrip()">Add Trip</button>
+    <button mat-fab extended color="accent" (click)="loadSample()">Load Sample</button>
+    <button mat-fab extended color="accent" (click)="clearTripData()">Clear</button>
+
+  </div>
+
+  <div class="visualizer">
+    <br />
+    <svg *ngIf="trips.length > 0" [attr.width]="svgWidth" height="200">
+      <defs>
+        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="0">
+          <polygon points="0 0, 10 3.5, 0 7" fill="red" />
+        </marker>
+      </defs>
+      <path *ngFor="let path of segmentPaths;  let i = index" [attr.d]="path" fill="none" stroke="#3f51b5"
+        stroke-width="2" [attr.marker-end]="trips[i+1].isNotContinous ? 'url(#arrowhead)' : null" />
+
+      <g *ngFor="let trip of trips; let i = index" (mouseenter)="hoveredTrip = trip" (mouseleave)="hoveredTrip = null">
+        <circle [attr.cx]="getX(i)" [attr.cy]="getY(trip.level)" r="6" fill="white" stroke="red" stroke-width="2" />
+
+        <text *ngIf="trip.level === 1" [attr.x]="getX(i) - 30" y="110" [attr.fill]="'#5C6BC0'" font-size="14"
+          font-weight="500">
+          {{ trip.start.slice(0, 3).toUpperCase() }} - {{ trip.end.slice(0, 3).toUpperCase() }}
+        </text>
+
+        <text *ngIf="trip.level === 2" [attr.x]="getX(i) - 30" y="20" [attr.fill]="'#5C6BC0'" font-size="14"
+          font-weight="500">
+          {{ trip.start.slice(0, 3).toUpperCase() }} - {{ trip.end.slice(0, 3).toUpperCase() }}
+        </text>
+        
+      </g>
+    </svg>
+
+    <div *ngIf="hoveredTrip" class="trip-tooltip">
+      Trip from <strong>{{ hoveredTrip.abbrStart }}</strong> to <strong>{{ hoveredTrip.abbrEnd }}</strong>
+    </div>
+
+    <div *ngIf="trips.length === 0" class="empty-message">
+      No trips to display. Please add a trip to begin visualization.
+    </div>
+
+  </div>
+</div>
